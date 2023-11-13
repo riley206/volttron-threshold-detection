@@ -16,8 +16,8 @@ description = "The ThresholdDetectionAgent will publish an alert when a value pu
 authors = ["VOLTTRON Team <volttron@pnnl.gov>"]
 license = "Apache License 2.0"
 readme = "README.md"
-repository = "https://github.com/eclipse-volttron/volttron-agent-watcher"
-homepage = "https://github.com/eclipse-volttron/volttron-agent-watcher"
+repository = "https://github.com/eclipse-volttron/volttron-threshold-detection"
+homepage = "https://github.com/eclipse-volttron/volttron-threshold-detection"
 keywords = []
 packages = [ { include = "threshold_detection", from = "src" } ]
 classifiers = [
