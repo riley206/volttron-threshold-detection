@@ -30,11 +30,11 @@ import mock
 from mock import Mock
 import pytest
 
-from volttron.platform.vip.agent import Agent, Core, PubSub, RPC, compat
-from volttron.platform.agent import utils
-from volttron.platform.messaging.health import Status, STATUS_BAD
-from volttrontesting.utils.utils import AgentMock
-from thresholddetection.agent import ThresholdDetectionAgent
+from volttron.client.vip.agent import Agent, Core, PubSub, RPC
+from volttron import utils
+from volttron.client.messaging.health import Status, STATUS_BAD
+from volttrontesting.utils import AgentMock
+from threshold_detection.agent import ThresholdDetectionAgent
 
 utils.setup_logging()
 _log = logging.getLogger(__name__)
