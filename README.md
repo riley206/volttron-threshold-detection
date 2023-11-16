@@ -7,6 +7,7 @@ value for the point above the max (if configured) or below the min (if configure
 configuration file.
 
 # Installation
+If VOLTTRON is already installed, proceed to setp 3.
 
 1. Create and activate a virtual environment.
 
@@ -14,19 +15,18 @@ configuration file.
     python -m venv env
     source env/bin/activate
     ```
-2. Install volttron and start the platform.
+2. Install VOLTTRON
 
     ```shell
     pip install volttron
+    ```
 
+3. Start VOLTTRON
+    ```shell
     # Start platform with output going to volttron.log
     volttron -vv -l volttron.log &
     ```
 
-3. Install the threshold detection library.
-    ```shell
-    pip install volttron-threshold-detection
-    ```
 4. Setup your configuration file. 
 
 
@@ -56,22 +56,6 @@ configuration file.
     Using device "all" topic:  JSON object with the key as the point name and value being the threshold object described
     above
 
-    Example
-
-    ```json
-    {
-        "devices/some/device/all": {
-            "point0": {
-                "threshold_max": 10,
-                "threshold_min": 0
-            },
-            "point1": {
-                "threshold_max": 42
-            }
-        }
-    }
-    ```
-
     Example configuration:
 
     ```json
@@ -87,7 +71,7 @@ configuration file.
         }
     }
     ```
-5. After creating your configuration file. install and start threshold detection in VOLTTRON.
+5. After creating your configuration file. install and start the threshold detection agent in VOLTTRON.
 
     ```shell
     vctl install volttron-threshold-detection --agent-config <path to config> --vip-identity platform.threshold_detection --start --force
