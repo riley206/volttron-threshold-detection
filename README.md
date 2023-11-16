@@ -5,6 +5,31 @@ value.
 The agent subscribes to the topics listed in the configuration file and publishes alerts when the callback receives a 
 value for the point above the max (if configured) or below the min (if configured) corresponding to the point in the
 configuration file.
+# Prerequisites
+
+* Python 3.8
+
+## Python
+
+<details>
+<summary>To install Python 3.8, we recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
+
+```bash
+# install pyenv
+git clone https://github.com/pyenv/pyenv ~/.pyenv
+
+# setup pyenv (you should also put these three lines in .bashrc or similar)
+export PATH="${HOME}/.pyenv/bin:${PATH}"
+export PYENV_ROOT="${HOME}/.pyenv"
+eval "$(pyenv init -)"
+
+# install Python 3.8
+pyenv install 3.8.10
+
+# make it available globally
+pyenv global system 3.8.10
+```
+</details>
 
 # Installation
 If VOLTTRON is already installed, proceed to setp 3.
@@ -27,8 +52,7 @@ If VOLTTRON is already installed, proceed to setp 3.
     volttron -vv -l volttron.log &
     ```
 
-4. Setup your configuration file. 
-
+4. Create a config file named `config` and use the examples below to create your JSON configuration. 
 
 * The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
     all publish.  Points to watch are configured as JSON key-value pairs as follows:
