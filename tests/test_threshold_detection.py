@@ -29,13 +29,13 @@ Pytest test cases for ThresholdDetectionAgent
 import pytest
 import gevent
 
-from volttron.platform import get_ops
-from volttron.platform.agent.known_identities import CONFIGURATION_STORE
-from volttron.platform.vip.agent import Agent, PubSub
-from volttrontesting.utils.utils import poll_gevent_sleep
+from volttrontesting.fixtures.volttron_platform_fixtures import volttron_instance
+from volttron.client.known_identities import CONFIGURATION_STORE
+from volttron.client.vip.agent import Agent, PubSub
+from volttrontesting.utils import poll_gevent_sleep
 
 from volttrontesting.utils import is_running_in_container
-from volttron.platform import jsonapi
+from volttron.utils import jsonapi
 
 
 if is_running_in_container():
@@ -108,7 +108,7 @@ def threshold_tester_agent(volttron_instance):
 
     print("ADDRESS IS: ", volttron_instance.vip_address)
     threshold_detection_uuid = volttron_instance.install_agent(
-        agent_dir=get_ops("ThresholdDetectionAgent"),
+        agent_dir="volttron-threshold-detection",
         config_file=_default_config,
         start=True)
 
