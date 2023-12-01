@@ -2,7 +2,7 @@
 The ThresholdDetectionAgent will publish an alert when a value published to a topic exceeds or falls below a configured
 value.
 
-The agent subscribes to the topics listed in the configuration file and publishes alerts when the callback receives a 
+The agent subscribes to the topics listed in the configuration file and publishes alerts when the callback receives a
 value for the point above the max (if configured) or below the min (if configured) corresponding to the point in the
 configuration file.
 # Prerequisites
@@ -40,27 +40,29 @@ If VOLTTRON is already installed, proceed to setp 3.
     python -m venv env
     source env/bin/activate
     ```
-2. Install VOLTTRON
+2. Install volttron and start the platform.
 
     ```shell
     pip install volttron
-    ```
 
-3. Start VOLTTRON
-    ```shell
     # Start platform with output going to volttron.log
     volttron -vv -l volttron.log &
     ```
 
-4. Create a config file named `config` and use the examples below to create your JSON configuration. 
+1. Create a config directory and navigate to it:
 
+    ```shell
+    mkdir config
+    cd config
+    ```
+    Navigate to the config directory and create a file called `config`. Use the examlpes below to populate that file with the correct JSON.
 * The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
     all publish.  Points to watch are configured as JSON key-value pairs as follows:
 
-    * Key:  The key is the point topic for the point to watch, or the device's "all" topic if watching points from the all 
+    * Key:  The key is the point topic for the point to watch, or the device's "all" topic if watching points from the all
     publish (i.e. "devices/campus/building/device/point" or "devices/campus/building/device/all" if using the all topic)
 
-    * Value:  Using point topic: JSON object specifying the min ('threshold_min') and max ('threshold_max) threshold values 
+    * Value:  Using point topic: JSON object specifying the min ('threshold_min') and max ('threshold_max) threshold values
     for the point.  Only one of the thresholds are required, but both may be used.
 
     Example:
