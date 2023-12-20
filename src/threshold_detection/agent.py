@@ -26,7 +26,7 @@ import logging
 import sys
 import uuid
 
-from volttron.client.vip.agent import Agent, Core, PubSub, RPC, compat
+from volttron.client.vip.agent import Agent, Core, PubSub, RPC
 from volttron import utils
 from volttron.client.messaging.health import Status, STATUS_BAD
 
