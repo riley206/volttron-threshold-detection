@@ -55,7 +55,7 @@ If VOLTTRON is already installed, proceed to setp 3.
     mkdir config
     cd config
     ```
-    Navigate to the config directory and create a file called `config`. Use the examlpes below to populate that file with the correct JSON.
+    Navigate to the config directory and create a file called `threshold_detection.config`. Use the examlpes below to populate that file with the correct JSON.
 * The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
     all publish.  Points to watch are configured as JSON key-value pairs as follows:
 
@@ -82,7 +82,7 @@ If VOLTTRON is already installed, proceed to setp 3.
     Using device "all" topic:  JSON object with the key as the point name and value being the threshold object described
     above
 
-    Example configuration:
+    Example 2:
 
     ```json
     {
@@ -100,7 +100,7 @@ If VOLTTRON is already installed, proceed to setp 3.
 5. After creating your configuration file. install and start the threshold detection agent in VOLTTRON.
 
     ```shell
-    vctl install volttron-threshold-detection --agent-config <path to config> --vip-identity platform.threshold_detection --start --force
+    vctl install volttron-threshold-detection --agent-config threshold_detection.config --vip-identity platform.threshold_detection --start --force
     ```
 
 ### Example Publish
