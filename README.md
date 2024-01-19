@@ -1,18 +1,20 @@
 # volttron-threshold-detection
+
 The ThresholdDetectionAgent will publish an alert when a value published to a topic exceeds or falls below a configured
 value.
 
 The agent subscribes to the topics listed in the configuration file and publishes alerts when the callback receives a
 value for the point above the max (if configured) or below the min (if configured) corresponding to the point in the
 configuration file.
-# Prerequisites
 
-* Python 3.8
+## Prerequisites
+
+* Python 3.10
 
 ## Python
 
 <details>
-<summary>To install Python 3.8, we recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
+<summary>To install Python 3.10, we recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
 
 ```bash
 # install pyenv
@@ -23,15 +25,17 @@ export PATH="${HOME}/.pyenv/bin:${PATH}"
 export PYENV_ROOT="${HOME}/.pyenv"
 eval "$(pyenv init -)"
 
-# install Python 3.8
-pyenv install 3.8.10
+# install Python 3.10
+pyenv install 3.10
 
 # make it available globally
-pyenv global system 3.8.10
+pyenv global system 3.10
 ```
+
 </details>
 
-# Installation
+## Installation
+
 If VOLTTRON is already installed, proceed to setp 3.
 
 1. Create and activate a virtual environment.
@@ -40,6 +44,7 @@ If VOLTTRON is already installed, proceed to setp 3.
     python -m venv env
     source env/bin/activate
     ```
+
 2. Install volttron and start the platform.
 
     ```shell
@@ -49,21 +54,23 @@ If VOLTTRON is already installed, proceed to setp 3.
     volttron -vv -l volttron.log &
     ```
 
-1. Create a config directory and navigate to it:
+3. Create a config directory and navigate to it:
 
     ```shell
     mkdir config
     cd config
     ```
-    Navigate to the config directory and create a file called `threshold_detection.config`. Use the examlpes below to populate that file with the correct JSON.
-* The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
-    all publish.  Points to watch are configured as JSON key-value pairs as follows:
 
-    * Key:  The key is the point topic for the point to watch, or the device's "all" topic if watching points from the all
-    publish (i.e. "devices/campus/building/device/point" or "devices/campus/building/device/all" if using the all topic)
+4. Navigate to the config directory and create a file called `threshold_detection.config`. Use the  examlpes below to populate that file with the correct JSON.
 
-    * Value:  Using point topic: JSON object specifying the min ('threshold_min') and max ('threshold_max) threshold values
-    for the point.  Only one of the thresholds are required, but both may be used.
+    * The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
+        all publish.  Points to watch are configured as JSON key-value pairs as follows:
+
+        * Key:  The key is the point topic for the point to watch, or the device's "all" topic if watching points from the all
+        publish (i.e. "devices/campus/building/device/point" or "devices/campus/building/device/all" if using the all topic)
+
+        * Value:  Using point topic: JSON object specifying the min ('threshold_min') and max ('threshold_max) threshold values
+        for the point.  Only one of the thresholds are required, but both may be used.
 
     Example:
 
@@ -97,6 +104,7 @@ If VOLTTRON is already installed, proceed to setp 3.
         }
     }
     ```
+
 5. After creating your configuration file. install and start the threshold detection agent in VOLTTRON.
 
     ```shell
@@ -107,7 +115,7 @@ If VOLTTRON is already installed, proceed to setp 3.
 
 This example publish uses the example config above along with a fake driver running on the platform.
 
-```
+```log
 Peer: pubsub
 Sender: platform.threshold_detection
 Bus:
@@ -117,7 +125,8 @@ Message: ('{"status": "BAD", "context": '
  '"devices/fake/fakedevice/all(OutsideAirTemperature2) value (50.0)is above '
  'acceptable limit (42)", "last_updated": "2023-11-13T20:30:10.025105+00:00"}')
 ```
-# Disclaimer Notice
+
+## Disclaimer Notice
 
 This material was prepared as an account of work sponsored by an agency of the
 United States Government.  Neither the United States Government nor the United
