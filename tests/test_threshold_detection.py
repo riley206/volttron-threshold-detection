@@ -26,17 +26,13 @@
 Pytest test cases for ThresholdDetectionAgent
 """
 
-import pytest
 import gevent
-
-from volttrontesting.fixtures.volttron_platform_fixtures import volttron_instance
+import pytest
 from volttron.client.known_identities import CONFIGURATION_STORE
 from volttron.client.vip.agent import Agent, PubSub
-from volttrontesting.utils import poll_gevent_sleep
-
-from volttrontesting.utils import is_running_in_container
 from volttron.utils import jsonapi
-
+from volttrontesting.fixtures.volttron_platform_fixtures import volttron_instance
+from volttrontesting.utils import is_running_in_container, poll_gevent_sleep
 
 if is_running_in_container():
     pytest.skip("Test module is flaky in containers", allow_module_level=True)

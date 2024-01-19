@@ -24,16 +24,17 @@
 
 import logging
 import sys
-import uuid
 import unittest
-import mock
-from mock import Mock
-import pytest
+import uuid
 
-from volttron.client.vip.agent import Agent, Core, PubSub, RPC
+import mock
+import pytest
+from mock import Mock
 from volttron import utils
-from volttron.client.messaging.health import Status, STATUS_BAD
+from volttron.client.messaging.health import STATUS_BAD, Status
+from volttron.client.vip.agent import RPC, Agent, Core, PubSub
 from volttrontesting.utils import AgentMock
+
 from threshold_detection.agent import ThresholdDetectionAgent
 
 utils.setup_logging()
@@ -73,7 +74,7 @@ class TestAgent(unittest.TestCase):
 
 def main(argv=sys.argv):
     agent = ThresholdDetectionAgent()
-    
+
 
 if __name__ == '__main__':
     # Entry point for script

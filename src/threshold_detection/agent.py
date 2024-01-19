@@ -26,9 +26,9 @@ import logging
 import sys
 import uuid
 
-from volttron.client.vip.agent import Agent, Core, PubSub, RPC
 from volttron import utils
-from volttron.client.messaging.health import Status, STATUS_BAD
+from volttron.client.messaging.health import STATUS_BAD, Status
+from volttron.client.vip.agent import RPC, Agent, Core, PubSub
 
 utils.setup_logging()
 _log = logging.getLogger(__name__)
@@ -221,7 +221,7 @@ class ThresholdDetectionAgent(Agent):
 def main(argv=sys.argv):
     """Main method called by the platform."""
     utils.vip_main(thresholddetection_agent,
-                   identity='platform.thresholddetection', 
+                   identity='platform.thresholddetection',
                    version=__version__)
 
 
