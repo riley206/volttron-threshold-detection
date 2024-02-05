@@ -5,7 +5,7 @@
 #
 # ===----------------------------------------------------------------------===
 #
-# Copyright 2022 Battelle Memorial Institute
+# Copyright 2024 Battelle Memorial Institute
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not
 # use this file except in compliance with the License. You may obtain a copy
@@ -77,6 +77,7 @@ class ThresholdDetectionAgent(Agent):
         }
 
     """
+
     def __init__(self, config, **kwargs):
         super(ThresholdDetectionAgent, self).__init__(**kwargs)
         self.config_topics = {}
@@ -167,9 +168,7 @@ class ThresholdDetectionAgent(Agent):
         topics = self.config_topics.pop(config_name)
         for t in topics:
             _log.info("Unsubscribing from {}".format(t))
-            self.vip.pubsub.unsubscribe(peer='pubsub',
-                                        prefix=t,
-                                        callback=None).get()
+            self.vip.pubsub.unsubscribe(peer='pubsub', prefix=t, callback=None).get()
 
     def _config_mod(self, *args):
         """
@@ -208,11 +207,7 @@ class ThresholdDetectionAgent(Agent):
         message = "{topic}{point} value ({data})" \
                   "is {custom} acceptable limit ({threshold})"
 
-        message = message.format(topic=topic,
-                                 point=point,
-                                 data=data,
-                                 custom=custom,
-                                 threshold=threshold)
+        message = message.format(topic=topic, point=point, data=data, custom=custom, threshold=threshold)
 
         status = Status.build(STATUS_BAD, message)
         self.vip.health.send_alert(topic, status)
@@ -220,9 +215,7 @@ class ThresholdDetectionAgent(Agent):
 
 def main(argv=sys.argv):
     """Main method called by the platform."""
-    utils.vip_main(thresholddetection_agent,
-                   identity='platform.thresholddetection',
-                   version=__version__)
+    utils.vip_main(thresholddetection_agent, identity='platform.thresholddetection', version=__version__)
 
 
 if __name__ == '__main__':
