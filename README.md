@@ -51,7 +51,7 @@ for the point.  Only one of the thresholds are required, but both may be used.
     ```
 
     Using device "all" topic:  JSON object with the key as the point name and value being the threshold object described
-    above
+    above.
 
     Example 2:
 
