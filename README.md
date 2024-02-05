@@ -7,70 +7,34 @@ The agent subscribes to the topics listed in the configuration file and publishe
 value for the point above the max (if configured) or below the min (if configured) corresponding to the point in the
 configuration file.
 
-## Prerequisites
+## Requires
 
-* Python 3.10
-
-## Python
-
-<details>
-<summary>To install Python 3.10, we recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
-
-```bash
-# install pyenv
-git clone https://github.com/pyenv/pyenv ~/.pyenv
-
-# setup pyenv (you should also put these three lines in .bashrc or similar)
-export PATH="${HOME}/.pyenv/bin:${PATH}"
-export PYENV_ROOT="${HOME}/.pyenv"
-eval "$(pyenv init -)"
-
-# install Python 3.10
-pyenv install 3.10
-
-# make it available globally
-pyenv global system 3.10
-```
-
-</details>
+* python >= 3.10
+* volttron >= 10.0
 
 ## Installation
 
-If VOLTTRON is already installed, proceed to setp 3.
+Before installing, VOLTTRON should be installed and running.  Its virtual environment should be active.
+Information on how to install of the VOLTTRON platform can be found
+[here](https://github.com/eclipse-volttron/volttron-core).
 
-1. Create and activate a virtual environment.
+Create a directory called `config` and use the change directory command to enter it.
 
-    ```shell
-    python -m venv env
-    source env/bin/activate
-    ```
+```shell
+mkdir config
+cd config
+```
 
-2. Install volttron and start the platform.
+After entering the config directory, create a file called `threshold_detection_config.json`, use the below JSON to populate your new file. Refer to the configuration overview if needed.
 
-    ```shell
-    pip install volttron
+The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
+    all publish.  Points to watch are configured as JSON key-value pairs as follows:
 
-    # Start platform with output going to volttron.log
-    volttron -vv -l volttron.log &
-    ```
+* Key:  The key is the point topic for the point to watch, or the device's "all" topic if watching points from the all
+publish (i.e. "devices/campus/building/device/point" or "devices/campus/building/device/all" if using the all topic)
 
-3. Create a config directory and navigate to it:
-
-    ```shell
-    mkdir config
-    cd config
-    ```
-
-4. Navigate to the config directory and create a file called `threshold_detection.config`. Use the  examlpes below to populate that file with the correct JSON.
-
-    * The Threshold Detection agent supports observing individual point values from their respective topics or from a device's
-        all publish.  Points to watch are configured as JSON key-value pairs as follows:
-
-        * Key:  The key is the point topic for the point to watch, or the device's "all" topic if watching points from the all
-        publish (i.e. "devices/campus/building/device/point" or "devices/campus/building/device/all" if using the all topic)
-
-        * Value:  Using point topic: JSON object specifying the min ('threshold_min') and max ('threshold_max) threshold values
-        for the point.  Only one of the thresholds are required, but both may be used.
+* Value:  Using point topic: JSON object specifying the min ('threshold_min') and max ('threshold_max) threshold values
+for the point.  Only one of the thresholds are required, but both may be used.
 
     Example:
 
@@ -105,26 +69,23 @@ If VOLTTRON is already installed, proceed to setp 3.
     }
     ```
 
-5. After creating your configuration file. install and start the threshold detection agent in VOLTTRON.
+After creating your configuration file. install and start the threshold detection agent in VOLTTRON.
 
-    ```shell
-    vctl install volttron-threshold-detection --agent-config threshold_detection.config --vip-identity platform.threshold_detection --start --force
-    ```
-
-### Example Publish
-
-This example publish uses the example config above along with a fake driver running on the platform.
-
-```log
-Peer: pubsub
-Sender: platform.threshold_detection
-Bus:
-Topic: alerts/ThresholdDetectionAgent/None_platform_threshold-detection
-Headers: {'alert_key': 'devices/fake/fakedevice/all', 'min_compatible_version': '3.0', 'max_compatible_version': ''}
-Message: ('{"status": "BAD", "context": '
- '"devices/fake/fakedevice/all(OutsideAirTemperature2) value (50.0)is above '
- 'acceptable limit (42)", "last_updated": "2023-11-13T20:30:10.025105+00:00"}')
+```shell
+vctl install volttron-threshold-detection --agent-config threshold_detection_config.json --vip-identity platform.threshold_detection --start --force
 ```
+
+View the status of the installed agent.
+
+```shell
+vctl status
+```
+
+## Development
+
+Please see the following for contributing guidelines [contributing](https://github.com/eclipse-volttron/volttron-core/blob/develop/CONTRIBUTING.md).
+
+Please see the following helpful guide about [developing modular VOLTTRON agents](https://github.com/eclipse-volttron/volttron-core/blob/develop/DEVELOPING_ON_MODULAR.md)
 
 ## Disclaimer Notice
 
