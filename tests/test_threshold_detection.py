@@ -27,7 +27,9 @@ Pytest test cases for ThresholdDetectionAgent
 
 import gevent
 import pytest
-from volttron.client.known_identities import CONFIGURATION_STORE
+
+from pathlib import Path
+from volttron.client.known_identities import CONFIGURATION_STORE, PLATFORM_DRIVER
 from volttron.client.vip.agent import Agent, PubSub
 from volttron.utils import jsonapi
 from volttrontesting.fixtures.volttron_platform_fixtures import volttron_instance
@@ -93,9 +95,10 @@ def threshold_tester_agent(volttron_instance):
     Fixture used for setting up ThresholdDetectionAgent and
     tester agents
     """
+    agent_path = Path(__file__).parents[1]
 
     print("ADDRESS IS: ", volttron_instance.vip_address)
-    threshold_detection_uuid = volttron_instance.install_agent(agent_dir="volttron-threshold-detection",
+    threshold_detection_uuid = volttron_instance.install_agent(agent_dir=agent_path,
                                                                config_file=_default_config,
                                                                start=True)
 
