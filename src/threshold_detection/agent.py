@@ -96,7 +96,7 @@ class ThresholdDetectionAgent(Agent):
         self.config_topics[config_name] = set()
         for topic, values in contents.items():
             self.config_topics[config_name].add(topic)
-            _log.info("Subscribing to {}".format(topic))
+            _log.info(f"Subscribing to {topic}")
 
             if topic.startswith("devices/") and topic.endswith("/all"):
                 self._create_device_subscription(topic, values)
@@ -167,7 +167,7 @@ class ThresholdDetectionAgent(Agent):
         """
         topics = self.config_topics.pop(config_name)
         for t in topics:
-            _log.info("Unsubscribing from {}".format(t))
+            _log.info(f"Unsubscribing from {t}")
             self.vip.pubsub.unsubscribe(peer='pubsub', prefix=t, callback=None).get()
 
     def _config_mod(self, *args):
@@ -197,7 +197,7 @@ class ThresholdDetectionAgent(Agent):
         """
         _log.debug("Sending Alert")
         if point:
-            point = '({})'.format(point)
+            point = f'({point})'
 
         if threshold < data:
             custom = "above"
