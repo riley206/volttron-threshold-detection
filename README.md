@@ -72,7 +72,7 @@ for the point.  Only one of the thresholds are required, but both may be used.
 After creating your configuration file. install and start the threshold detection agent in VOLTTRON.
 
 ```shell
-vctl install volttron-threshold-detection --agent-config threshold_detection_config.json --vip-identity platform.threshold_detection --start --force
+vctl install volttron-threshold-detection --agent-config threshold_detection_config.json --vip-identity platform.threshold_detection --start
 ```
 
 View the status of the installed agent.
