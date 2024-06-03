@@ -204,10 +204,7 @@ class ThresholdDetectionAgent(Agent):
         else:
             custom = "below"
 
-        message = "{topic}{point} value ({data})" \
-                  "is {custom} acceptable limit ({threshold})"
-
-        message = message.format(topic=topic, point=point, data=data, custom=custom, threshold=threshold)
+        message = f"{topic}{point} value ({data}) is {custom} acceptable limit ({threshold})"
 
         status = Status.build(STATUS_BAD, message)
         self.vip.health.send_alert(topic, status)
