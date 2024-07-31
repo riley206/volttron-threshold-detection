@@ -27,13 +27,15 @@ Pytest test cases for ThresholdDetectionAgent
 
 import gevent
 import pytest
-
 from pathlib import Path
 from volttron.client.known_identities import CONFIGURATION_STORE, PLATFORM_DRIVER
 from volttron.client.vip.agent import Agent, PubSub
 from volttron.utils import jsonapi
 from volttrontesting.fixtures.volttron_platform_fixtures import volttron_instance
 from volttrontesting.utils import is_running_in_container, poll_gevent_sleep
+from volttron.types import ServiceInterface
+from volttron.services.routing import RoutingService
+
 
 if is_running_in_container():
     pytest.skip("Test module is flaky in containers", allow_module_level=True)
@@ -99,7 +101,8 @@ def threshold_tester_agent(volttron_instance):
 
     print("ADDRESS IS: ", volttron_instance.vip_address)
     threshold_detection_uuid = volttron_instance.install_agent(agent_dir=agent_path,
-                                                               config_file=_default_config,
+                                                               config_file=_test_config,
+                                                               vip_identity="platform.thresholddetection",
                                                                start=True)
 
     agent = volttron_instance.build_agent(agent_class=AlertWatcher, identity="alert_watcher", enable_store=True)
@@ -182,8 +185,8 @@ def test_update_config(threshold_tester_agent):
     # threshold_tester_agent.vip .config.set('config', updated_config, True)
     threshold_tester_agent.vip.rpc.call(CONFIGURATION_STORE, 'manage_store', 'platform.thresholddetection', 'config',
                                         jsonapi.dumps(updated_config), 'json').get()
-    gevent.sleep(0.1)
-    # gevent.sleep(1)
+    # gevent.sleep(0.1)
+    gevent.sleep(1)
     # Sleep for chance to update from config callback.
     # config = threshold_tester_agent.vip.config.get()
     # assert threshold_tester_agent.vip.config.get() == updated_config
